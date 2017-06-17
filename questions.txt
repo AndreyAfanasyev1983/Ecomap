@@ -1,0 +1,4 @@
+0. MIN 3 MAX 9
+1. two dimenshional array
+2. void greet(void)
+3. init. draw. move. won.
