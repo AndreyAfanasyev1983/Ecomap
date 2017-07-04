@@ -1,0 +1,12 @@
+1.  Standart for input/output in C
+2.  Declaration the elements with different size
+3.  8,32,32,16
+4.  Hex:0x424d, ASCII:BM
+5.  bfSize is a file size, biSize is a size of structure (constant)
+6.  The bitmap is a top-down DIB
+7.  biBitCount
+8.  If it can't find the file
+9.  It`s always calling for work with 1 file
+10. 12
+11. Skip pointer in a file
+12. Current pointer position
