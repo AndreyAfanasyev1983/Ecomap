@@ -1,0 +1,7 @@
+0.  The most longer word in english.
+1.  Returning the time for doing current process.
+2.  Two members are in a variable of type struct rusage.
+3.  Becaurse we must have reference instead value.
+4.  Every word is read letter by letter while we reach the end of word.
+5.  This might overwrite other important data.
+6.  Becaurse const char* is a pointer, who's value can be changed, that points to a location containing a value of type char that cannot be changed, what we need.
