@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+        {% for row in data_base %}
+        <li>{{row}}</li>
+        {% endfor %}
+      </ul>
+      
+       <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Shares</th>
+                <th>Price</th>
+                <th>TOTAL</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in portfolio %}
+                <tr>
+                    <td>{{row.symbol}}</td>
+                    {% for label in name %}
+                        {% if label.symbol == row.symbol %}
+                            <td>{{label.name}}</td>
+                        {% endif %}
+                    {% endfor %}
+                    <td>{{row.shares_count}}</td>
+                    {% for label in name %}
+                        {% if label.symbol == row.symbol %}
+                            <td>{{label.share_price}}</td>
+                            <td>{{row.shares_count*label.share_price}}</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="4">CASH</td>
+                <td>$ {{cash[0].cash}}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}
