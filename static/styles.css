@@ -1,0 +1,53 @@
+html, body
+{
+    font-family: Georgia;
+    background: #4169E1;
+    height: 100%;
+    margin: 20px;
+
+}
+#map_canvas
+{
+    border: 10px solid #FFFFFF;
+    border-radius: 20px 20px 20px 20px;
+    height: 600px;
+    width :55%;
+    float: left;
+}
+
+
+.header {
+
+     height: 80px;
+     background: #4169E1;
+     text-align: center;
+     font-size: 30pt;
+     font-weight: bolder;
+     color: #00FF00;
+}
+.info {
+     height: 60px;
+     background: #4169E1;
+     text-align: center;
+     font-size: 18pt;
+     font-weight: bolder;
+     color: white;
+}
+.form {
+     font-weight: bolder;
+     /*color: yellow;*/
+     float: right;
+     /*padding: 5px; */
+      font-size: 15pt;
+}
+.h2{
+    font-size: 20pt;
+    font-weight: bolder;
+    color: white;
+}
+.hrefmap{
+
+    font-size: 15pt;
+    font-weight: bolder;
+    color: black;
+}
