@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+
+        <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta -->
+        <meta charset="utf-8"/>
+        <meta content="initial-scale=1, width=device-width" name="viewport"/>
+
+        <!-- http://getbootstrap.com/ -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+
+        <!-- app's own CSS -->
+        <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
+
+        <!-- https://developers.google.com/maps/documentation/javascript/ -->
+        <script src="https://maps.googleapis.com/maps/api/js?key={{ key | urlencode }}&v=3.exp"></script>
+
+        <!-- http://jquery.com/ -->
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+        <!-- http://getbootstrap.com/ -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <!-- https://github.com/corejavascript/typeahead.js/blob/master/doc/jquery_typeahead.md -->
+        <script src="https://cdn.rawgit.com/corejavascript/typeahead.js/master/dist/typeahead.jquery.js"></script>
+
+        <!-- http://handlebarsjs.com/ -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+
+        <!-- http://stewartjpark.com/Flask-JSGlue/ -->
+        {{ JSGlue.include() }}
+
+        <!-- app's own JavaScript -->
+        <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+
+        <title>ECOMAP of city Irpen</title>
+
+    </head>
+    <body>
+        <div class="header">
+
+   ECOMAP  IRPEN
+
+   </div>
+   <div class="info">
+
+   <p>If you have any ecological problem, put geo marker and discribe problem.</p>
+
+   </div>
+     <div class="form">
+     <form name="geo" method="post" action="/send">
+         <div>
+             <p class = h2><b>Location</b><br></p>
+         </div>
+             <input readonly onkeyup="checkParams()" type="text" name="lat" id="lat" size="25"  autocomplete="off"/>
+             <input readonly onkeyup="checkParams()" type="text" name="long" id="long" size="25"  autocomplete="off"/>
+         <div>
+             <p class = h2><b>Name</b><br></p>
+         </div>
+             <input onkeyup="checkParams()" name="name" id="name" type="text" size="30" autocomplete="off">
+         <div>
+             <p class = h2>Discribe problem<br></p>
+         </div>
+         <textarea onkeyup="checkParams()" name="comment" id="problem" cols="40" rows="3"></textarea>
+          <div>
+             <p class = h2><b>Contact</b><br></p>
+         </div>
+             <input onkeyup="checkParams()" name="contact" id="contact" type="text" size="30" autocomplete="off">
+         <p><input type="submit" id="submit" value="Put geo marker " disabled></p>
+
+         <p><button><a class="hrefmap" href="/all">Look at ECOMAP</a></button></p>
+    </form>
+   </div>
+
+  </div>
+
+            <!-- https://developers.google.com/maps/documentation/javascript/tutorial -->
+        <div id="map_canvas"></div>
+
+
+    </body>
+</html>

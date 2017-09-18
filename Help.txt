@@ -1,0 +1,10 @@
+Input Google Map API KEY
+In a terminal window, execute
+
+export API_KEY=value
+where value is that (pasted) value, without any space immediately before or after the =.
+
+If you need to find that value later (to copy and paste it again), visit console.developers.google.com and click Credentials at top-left
+Start Flask’s built-in web server (within project/):
+
+flask run

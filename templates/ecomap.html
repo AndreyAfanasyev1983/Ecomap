@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ALL MARKERS PAGE</title>
+
+
+        <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta -->
+        <meta charset="utf-8"/>
+        <meta content="initial-scale=1, width=device-width" name="viewport"/>
+
+        <!-- http://getbootstrap.com/ -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+
+        <!-- app's own CSS -->
+        <!--<link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>-->
+
+        <!-- https://developers.google.com/maps/documentation/javascript/ -->
+        <script src="https://maps.googleapis.com/maps/api/js?key={{ key | urlencode }}&v=3.exp"></script>
+
+        <!-- http://jquery.com/ -->
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+        <!-- http://getbootstrap.com/ -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <!-- https://github.com/corejavascript/typeahead.js/blob/master/doc/jquery_typeahead.md -->
+        <script src="https://cdn.rawgit.com/corejavascript/typeahead.js/master/dist/typeahead.jquery.js"></script>
+
+        <!-- http://handlebarsjs.com/ -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+
+        <!-- http://stewartjpark.com/Flask-JSGlue/ -->
+        {{ JSGlue.include() }}
+
+</head>
+<style type="text/css">
+ html, body
+{
+    font-family: Georgia;
+    background: #4169E1;
+    height: 100%;
+    margin: 20px;
+
+}
+#map_canvas
+{
+    border: 10px solid #FFFFFF;
+    border-radius: 20px 20px 20px 20px;
+    height: 80%;
+    width :100%;
+    float: center;
+}
+.header {
+
+     height: 80px;
+     background: #4169E1;
+     text-align: center;
+     font-size: 30pt;
+     font-weight: bolder;
+     color: #00FF00;
+}
+.hrefmap{
+
+    font-size: 15pt;
+    font-weight: bolder;
+    color: black;
+    float: right;
+}
+
+
+  </style>
+<body>
+  <div class="header">
+
+   ECOMAP  IRPEN
+
+    </div>
+    <div>
+      <button class="hrefmap"><a class="hrefmap" href="/">Create new marker</a></button>
+    </div>
+    <div id="map_canvas"></div>
+    <script>
+// global "map" variable
+var map = null;
+var marker = null;
+
+  var infowindow = new google.maps.InfoWindow(
+  {
+    size: new google.maps.Size(150,50)
+  });
+
+
+  function createMarker(latlng, name, html) {
+    var contentString = html;
+    var marker = new google.maps.Marker({
+        position: latlng,
+        map: map
+        });
+
+    google.maps.event.addListener(marker, 'click', function() {
+        infowindow.setContent(contentString);
+        infowindow.open(map,marker);
+    });
+
+    google.maps.event.trigger(marker, 'click');
+    return marker;
+}
+
+
+// // execute when the DOM is fully loaded
+$(function() {
+
+    var myOptions = {
+        center: {lat: 50.518750, lng: 30.239783}, // Irpen
+        mapTypeControl: true,
+        mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        maxZoom: 40,
+        zoom: 13,
+        zoomControl: true
+    };
+  map = new google.maps.Map(document.getElementById("map_canvas"),
+                                myOptions);
+
+  google.maps.event.addListener(map, 'click', function() {
+        infowindow.close();
+        });
+// create markers all from SQL
+    $.getJSON(Flask.url_for("markers"))
+    .done(function(data, textStatus, jqXHR) {
+        data.forEach( function(markerData){
+              var ltglng = {
+                lat: markerData.Lat,
+                lng: markerData.Long
+              };
+              createMarker(ltglng, "name", "<b>Location : </b><br>"+
+	                                         "Latitude: " + markerData.Lat + '<br>' +
+	                                         "Longtitude: " + markerData.Long + '<br>' +
+	                                         "Name: " + markerData.Name + '<br>' +
+	                                         "Description: " + markerData.comment + '<br>' +
+	                                         "Contact: " + markerData.Contact);
+        })
+    })
+    .fail(function(jqXHR, textStatus, errorThrown) {
+        console.log(errorThrown.toString());
+    });
+ });
+
+
+    </script>
+   </body>
+</html>
